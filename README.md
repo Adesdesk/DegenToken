@@ -1,41 +1,51 @@
 # Project Title
 
-Simple overview of use/purpose.
+Project: Degen Token (ERC-20): Unlocking the Future of Gaming
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+The Creation of a token that can be earned by players in the Degen Gaming studio and then exchanged for rewards in an in-game store.
 
 ## Getting Started
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* clone a copy of this project by running the following command in a terminal pointed to your choice location for the project.
+
+```
+git clone https://github.com/Adesdesk/DegenToken.git
+```
+* Once done, navigate (cd) into the DegenToken project and install dependencies in the same terminal by running the following commands in the same order
+```
+cd DegenToken
+npm install
+```
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+* Open the project folder in your preferred IDE
+* Add a .env file to the project's root folder and paste the following in it, ensuring to replace placeholder values with specific values that apply
 ```
-code blocks for commands
+PRIVATE_KEY='your_wallet_private_key'
+SNOWTRACE_API_KEY='snowtrace'
+``` 
+* To deploy this contract for yourself, run the following command 
+
+```
+npx hardhat --n
 ```
 
 ## Help
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+Ensure that the smart contract file you create is named with a ".sol" file extension
 
-## Authors
+## Author(s)
 
-Contributors names and contact info
+Name: Adeola David Adelakun
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+Email: adesdesk@outlook.com
 
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the LICENSE.md file for details
