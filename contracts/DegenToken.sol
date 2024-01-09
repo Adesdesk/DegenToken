@@ -1,41 +1,54 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.18;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 
-contract DegenToken is ERC20, Ownable {
+contract DegenToken is ERC20, ERC20Burnable, Ownable, ERC20Permit {
+    enum ItemType { Item_I, Item_II }
 
-    constructor() ERC20("Degen", "DGN") {}
+    uint256 public constant ITEM_I_COST = 10;
+    uint256 public constant ITEM_II_COST = 100;
 
-        // only owner can mint tokens
-        // tokens can be minted directly to any address (players)
-        function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
+    constructor() ERC20("Degen", "DGN") Ownable(msg.sender) // Set deployer as the owner
+        ERC20Permit("DegenToken")
+    {}
+    
+    // Function for only owner to mint new tokens
+    function mint(address player, uint256 amount) public onlyOwner {
+        _mint(player, amount);
     }
 
-    // players are able to transfer their tokens to others
-    function transferTokens(address to, uint256 amount) public {
-        _transfer(msg.sender, to, amount);
+    // Function for users to transfer tokens to others
+    function transferTokens(address to, uint256 amount) external {
+        require(balanceOf(msg.sender) >= amount, "Insufficient balance");
+        approve(msg.sender, amount);
+        transferFrom(msg.sender, to, amount);
     }
 
-    function exchangeTokensForProduct(uint256 amount) public {
-        // Add logic for product exchange using tokens
-        // Ensure that the product exchange rate and other conditions are implemented
-        // Update the following line accordingly
-        require(balanceOf(msg.sender) >= amount, "Insufficient tokens");
-        _burn(msg.sender, amount);
-        // Add logic for product exchange here
+    // Function for users to redeem tokens for items in the in-game store
+    function redeemTokensForItems(ItemType itemType) external {
+        if (itemType == ItemType.Item_I) {
+            require(balanceOf(msg.sender) >= ITEM_I_COST, "Insufficient tokens to redeem for item_I");
+            _burn(msg.sender, ITEM_I_COST); // Burn tokens upon successful transaction
+        } else if (itemType == ItemType.Item_II) {
+            require(balanceOf(msg.sender) >= ITEM_II_COST, "Insufficient tokens to redeem for item_II");
+            _burn(msg.sender, ITEM_II_COST); // Burn tokens upon successful transaction
+        } else {
+            revert("Invalid item type");
+        }
     }
 
-    // unrestricted functionality to help any player check their token balance at any time
-    function checkTokenBalance() public view returns (uint256) {
-        return balanceOf(msg.sender);
+    // Function for users to check their token balance
+    function balanceOf(address account) public view override returns (uint256) {
+        return super.balanceOf(account);
     }
-
-    // anyone can burn tokens that they own or that are no longer needed
-    function burnTokens(uint256 amount) public {
+    
+    // Function for users to burn their tokens
+    function burn(uint256 amount) public override {
+        require(balanceOf(msg.sender) >= amount, "Insufficient balance");
         _burn(msg.sender, amount);
     }
 }
-
