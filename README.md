@@ -50,3 +50,10 @@ Email: adesdesk@outlook.com
 ## License
 
 This project is licensed under the MIT License - see the LICENSE.md file for details
+
+Degen token deployed to 0x17C748C0c32Ca6E7Cf4749F056c6de3f13573BB5
+
+npx hardhat verify 0x17C748C0c32Ca6E7Cf4749F056c6de3f13573BB5 --network fuji
+
+Successfully verified contract DegenToken on the block explorer.
+https://testnet.snowtrace.io/address/0x17C748C0c32Ca6E7Cf4749F056c6de3f13573BB5#code

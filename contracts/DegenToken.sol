@@ -1,19 +1,17 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 
-contract DegenToken is ERC20, ERC20Burnable, Ownable, ERC20Permit {
+contract DegenToken is ERC20, ERC20Burnable, Ownable {
     enum ItemType { Item_I, Item_II }
 
     uint256 public constant ITEM_I_COST = 10;
     uint256 public constant ITEM_II_COST = 100;
 
     constructor() ERC20("Degen", "DGN") Ownable(msg.sender) // Set deployer as the owner
-        ERC20Permit("DegenToken")
     {}
     
     // Function for only owner to mint new tokens
