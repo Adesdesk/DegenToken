@@ -47,8 +47,6 @@ module.exports = {
     }
   },
   // etherscan: {
-  // 100000000000
-  // 225000000000
   //   apiKey: {
   //     snowtrace: "snowtrace", // apiKey is not required, just setting a placeholder
   //   },

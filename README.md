@@ -32,7 +32,8 @@ SNOWTRACE_API_KEY='snowtrace'
 * To deploy this contract for yourself, run the following command 
 
 ```
-npx hardhat --n
+npx hardhat run scripts/deploy.js --network fuji
+npx hardhat verify <TOKEN ADDRESS> --network fuji
 ```
 
 ## Help
